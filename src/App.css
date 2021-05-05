@@ -2,3 +2,45 @@
     margin:0;
     padding:0;
 }
+
+.loader-main{
+    height:100vh;
+    width:100vw;
+    background: linear-gradient(#141e30, #243b55);
+    display:flex;
+    justify-content:center;
+    flex-direction: column;
+}
+
+.loader-main .title-container{
+    position:relative;
+    width: auto;
+}
+
+.loader-main .title-container h1{
+    position:relative;
+    text-align:center;
+    color: #fff;
+}
+
+.loader__preloader {
+    width: 70px;
+    height: 70px;
+    border: 10px solid #eee;
+    border-top: 10px solid rgb(11, 89, 126);
+    border-radius: 50%;
+    animation-name: girar;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    margin-top: 10px;
+    margin-left: 47%;
+  }
+  @keyframes girar {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
