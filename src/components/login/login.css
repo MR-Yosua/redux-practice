@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+.main-container{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width:100vw;
+    background: linear-gradient(#141e30, #243b55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Ubuntu', sans-serif;
+}    
+.login-title h2{
+    color: #fff;
+    font-size: 25px;
+}
+
+.login-container{
+    position: absolute;
+    background-color: #0C141E;
+    width:400px;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 10px 15px 5px rgba(0, 0, 0, 0.2);
+}
+
+.login-container .form-container {
+    padding:20px 0px;
+    font-size: 16px;
+}
+
+.login-container .form-container .input-field input{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #fff;
+    width:100%;
+    height:40px;
+    padding: 10px 0;
+    background: transparent;
+    color: #fff;
+    font-size: 17px;
+    transition: all 0.1s ease-in;
+}
+
+.login-container .form-container .input-field input:focus{
+    border-bottom: 1px solid #437fc4;
+}
+
+.login-container .form-container .btn{
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    height: 20px;
+    width: 150px;
+    color: #fff;
+    border: 2px solid #fff;
+    margin-top: 10px;
+    padding:5px;
+    font-size: 15px;
+    font-weight:700;
+    background-color:transparent;
+    border-radius: 10px;
+    transition:all .2s ease-in;
+    margin-right: 20px;
+}
+
+.login-container .form-container .btn:hover{
+    background-color:#1f354d;
+}
+
+.login-container .form-container .btn-section{
+    margin-top: 10px;
+    display:flex;
+    margin-left: 30px;
+}
+
+.login-container .form-container .icons{
+    margin-top: 20px;
+    cursor: pointer;
+    width:100%;
+    height: 40px;
+    color:#fff;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #101e2e;
+}
+
+.login-container .form-container .icons .fab{
+    margin-left: 10px;
+}
+.login-container .form-container .icons p{
+    margin-left: 10px;
+}
