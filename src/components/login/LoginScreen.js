@@ -33,6 +33,7 @@ const LoginScreen = () => {
         auth.signInWithEmailAndPassword(email,password).then((result) => {
             console.log(result)
             dispatch(setActiveUser({
+                uid:result.user.uid,
                 userName: result.user.displayName,
                 userEmail:result.user.email
             }))
@@ -49,6 +50,7 @@ const LoginScreen = () => {
     const SignInWithGoogle = () => {
         auth.signInWithPopup(provider).then((result) =>{
             dispatch(setActiveUser({
+                uid:result.user.uid,
                 userName: result.user.displayName,
                 userEmail: result.user.email
             }))
@@ -66,7 +68,7 @@ const LoginScreen = () => {
                     <h2>Login to use this amazing app</h2> 
                 </div>
                 <div className="form-container">
-                    <form >
+                    <form onSubmit={signIn}>
                         <div className="input-field">
                             <input 
                                 type="text"
@@ -85,11 +87,11 @@ const LoginScreen = () => {
                         </div>
 
                         {
-                        error && 
-                        <Alert variant="filled" severity="error">
-                                Problemas con Credenciales
-                        </Alert>
-                    }
+                            error && 
+                            <Alert variant="filled" severity="error">
+                                    Problemas con Credenciales
+                            </Alert>
+                        }
 
 
                         <div className="icons" onClick={SignInWithGoogle}>

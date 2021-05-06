@@ -1,0 +1,22 @@
+.container-todo {
+    display: flex;
+    align-items: center;
+}
+
+.container-todo h3{
+    color: #fff;    
+}
+
+.container-todo  .icon {
+    margin-left: 10%;
+}
+
+.container-todo  .icon i{
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.container-todo .icon i:hover{
+    color: red;
+}

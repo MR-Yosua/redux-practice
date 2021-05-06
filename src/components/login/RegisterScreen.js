@@ -23,6 +23,7 @@ const RegisterScreen = () => {
                 let user = userAuth.user 
                 // console.log(user.email);
                 dispatch( setActiveUser({
+                    uid:user.uid,
                     userName:name,
                     userEmail:user.email,
                 }))

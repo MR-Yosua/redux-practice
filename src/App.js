@@ -26,6 +26,7 @@ function App() {
     auth.onAuthStateChanged(async (user)=>{
       if(user?.uid){
         dispatch(setActiveUser({
+          uid:user.uid,
           userName: user.displayName,
           userEmail: user.email
         }))
