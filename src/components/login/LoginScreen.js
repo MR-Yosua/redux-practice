@@ -58,22 +58,24 @@ const LoginScreen = () => {
     }
     
     const SignInWithGoogle = async() => {
-        await auth.signInWithPopup(provider).then((result) =>{
-            dispatch(setActiveUser({
-                uid:result.user.uid,
-                userName: result.user.displayName,
-                userEmail: result.user.email
-            }))
-            //create users database on firebase
-            db.collection('users').doc(result.user.uid).set({
-                uid:result.user.uid,
-                userName: result.user.displayName,
-                userEmail:result.user.email
-            });
-              
-            history.push('/home');
 
-        } ).catch(error=>{setError(true)});
+       
+            await auth.signInWithPopup(provider).then((result) =>{
+                dispatch(setActiveUser({
+                    uid:result.user.uid,
+                    userName: result.user.displayName,
+                    userEmail: result.user.email
+                }))
+                //create users database on firebase
+                db.collection('users').doc(result.user.uid).set({
+                    uid:result.user.uid,
+                    userName: result.user.displayName,
+                    userEmail:result.user.email
+                });
+                  
+                history.push('/home');
+    
+            } ).catch(error=>{setError(true)});
 
     }
     

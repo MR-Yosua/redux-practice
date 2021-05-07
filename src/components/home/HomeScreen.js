@@ -22,19 +22,20 @@ const HomeScreen = () => {
     const dispatch = useDispatch();
     const [input, setInput] = useState('');
     const [error, setError] = useState(false);
+    const [newTodo, setNewTodo] = useState(false);
 
     const signOut = () => {
         auth.signOut().then(() => {
-            dispatch(setUserLogOut());
             dispatch(deleteAllTodo());
+            dispatch(setUserLogOut());
             history.push('/');
         }).catch(error=>alert(error));
     }
 
 
     useEffect(() => {
-            dispatch(deleteAllTodo());
-            db.collection('users').doc(uid).collection('todos').get().then(snapshot =>{
+        db.collection('users').doc(uid).collection('todos').get().then(snapshot =>{
+                dispatch(deleteAllTodo());
                 snapshot.docs.forEach(doc =>{
                     dispatch(addTodo({
                         item:doc.data().item
@@ -45,6 +46,10 @@ const HomeScreen = () => {
     }, [])
 
 
+    const handleClick = () => {
+        saveTodo();
+        setNewTodo(true);
+    }
     
 
     useEffect(() => {
@@ -62,11 +67,7 @@ const HomeScreen = () => {
                 item:input
             }))
             
-            // db.collection('users').doc(uid).collection('todos').add({
-            //           id:,
-            //           item:item,
-            //           done:checked
-            // })
+
             setInput('');
             document.querySelector('#inputfield').focus();
             
@@ -97,7 +98,7 @@ const HomeScreen = () => {
                             {
                                 todos.map(todo =>(
                                     // console.log("todo")
-                                    <TodoList key={todo.id} item={todo.item} id={todo.id}/>
+                                    <TodoList key={todo.id} item={todo.item} id={todo.id} checktodo={newTodo}/>
                                 ))
                             }
                         </div>
@@ -113,7 +114,7 @@ const HomeScreen = () => {
                             />
                             
                             <button
-                                    onClick={saveTodo}    
+                                    onClick={handleClick}    
                                 >
                                     Agregar tarea
                             </button>

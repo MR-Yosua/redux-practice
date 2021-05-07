@@ -5,28 +5,32 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import {deleteTodoByID,updateDoneState} from '../../features/todoSlice'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { db } from '../../firebase';
+import { selectUid } from '../../features/userSlice';
 // import { db } from '../../firebase';
 
-const TodoList = ({item,id:todoid}) => {
+const TodoList = ({item,id:todoid,checktodo}) => {
   
     const [checked, setChecked] = useState(true);
-
+    
     const dispatch = useDispatch();
-
-    // const uid = useSelector(state =>state.user.uid);
-
+    // const lastTodo = useSelector(selectLastTodo);
+    
+    const uid = useSelector(selectUid);
 
 
     useEffect(() => {
-
-    //   db.collection('users').doc(uid).collection('todos').add({
-    //       id:todoid,
-    //       item:item,
-    //       done:checked
-    //   })
-    // const lastTodo = todos.slice(-1).pop();
-    //   console.log(lastTodo);
+      
+      if(checktodo){
+    
+        db.collection('users').doc(uid).collection('todos').add({
+            id:todoid,
+            item:item,
+            done:checked
+        })
+      }
+     
     }, []);
 
 

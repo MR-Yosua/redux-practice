@@ -16,8 +16,8 @@ const todoSlice = createSlice({
             }
             state.todoList.push(todo);
         },
-        deleteAllTodo:(state)=>{
-            state.todoList =[];
+        deleteAllTodo:()=>{
+            return initialState;
         },
         deleteTodoByID:(state,action)=>{
             const filtered = state.todoList.filter(todo=> todo.id !== action.payload);
