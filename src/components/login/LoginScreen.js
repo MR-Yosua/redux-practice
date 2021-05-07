@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './login.css';
 import {useHistory} from 'react-router-dom';
-import {auth,provider} from '../../firebase';
+import {auth,provider,db} from '../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActiveUser} from '../../features/userSlice';
 import Alert from '@material-ui/lab/Alert';
+
 
 const LoginScreen = () => {
     
@@ -13,10 +14,11 @@ const LoginScreen = () => {
     const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState('');
 
-    const dispatch = useDispatch();
-
-    const history = useHistory();
     
+    const dispatch = useDispatch();
+    
+    const history = useHistory();
+   
     const authenticaded = useSelector(state=>state.user.userEmail);
     
     useEffect(() =>{
@@ -26,18 +28,26 @@ const LoginScreen = () => {
     },[history,authenticaded] );
 
 
-
-
-
     const signIn = () => {
         auth.signInWithEmailAndPassword(email,password).then((result) => {
-            console.log(result)
+            
             dispatch(setActiveUser({
                 uid:result.user.uid,
                 userName: result.user.displayName,
                 userEmail:result.user.email
             }))
+            
+
+            //create users database on firebase
+            db.collection('users').doc(result.user.uid).set({
+                uid:result.user.uid,
+                userName: result.user.displayName,
+                userEmail:result.user.email
+            });
+
+            
             history.push('/home');
+
        }).catch(
             setError(true)
         );
@@ -47,14 +57,22 @@ const LoginScreen = () => {
         history.push('/register');
     }
     
-    const SignInWithGoogle = () => {
-        auth.signInWithPopup(provider).then((result) =>{
+    const SignInWithGoogle = async() => {
+        await auth.signInWithPopup(provider).then((result) =>{
             dispatch(setActiveUser({
                 uid:result.user.uid,
                 userName: result.user.displayName,
                 userEmail: result.user.email
             }))
+            //create users database on firebase
+            db.collection('users').doc(result.user.uid).set({
+                uid:result.user.uid,
+                userName: result.user.displayName,
+                userEmail:result.user.email
+            });
+              
             history.push('/home');
+
         } ).catch(error=>{setError(true)});
 
     }

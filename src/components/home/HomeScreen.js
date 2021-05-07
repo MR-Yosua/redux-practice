@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import {auth} from '../../firebase';
+import {auth, db} from '../../firebase';
 import { useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import { setUserLogOut } from '../../features/userSlice';
 import './homescreen.css';
-import {addTodo, deleteAllTodo} from '../../features/todoSlice';
+import {addTodo, deleteAllTodo } from '../../features/todoSlice';
 import TodoList from '../todo/TodoList';
 import {selectTodo} from '../../features/todoSlice';
 import Alert from '@material-ui/lab/Alert';
@@ -14,16 +14,15 @@ const HomeScreen = () => {
     // const todos = useSelector(state=>state.todos.todoList);
     
     const todos = useSelector(selectTodo);
-
+    // const lastTodo = useSelector(selectLastTodo);
+    const name = useSelector(state =>state.user.userName);
+    const uid = useSelector(state =>state.user.uid);
 
     const history = useHistory();
     const dispatch = useDispatch();
-
-    const name = useSelector(state =>state.user.userName);
-    
     const [input, setInput] = useState('');
     const [error, setError] = useState(false);
-    
+
     const signOut = () => {
         auth.signOut().then(() => {
             dispatch(setUserLogOut());
@@ -31,6 +30,21 @@ const HomeScreen = () => {
             history.push('/');
         }).catch(error=>alert(error));
     }
+
+
+    useEffect(() => {
+            dispatch(deleteAllTodo());
+            db.collection('users').doc(uid).collection('todos').get().then(snapshot =>{
+                snapshot.docs.forEach(doc =>{
+                    dispatch(addTodo({
+                        item:doc.data().item
+                    }))
+                })
+             })
+ 
+    }, [])
+
+
     
 
     useEffect(() => {
@@ -41,15 +55,18 @@ const HomeScreen = () => {
         }
     }, [error])
     
-    const saveTodo = () => {
+    const saveTodo = async() => {
         // console.log(`Adding ${input}`);
-
         if(input !== ''){
-
-            dispatch(addTodo({
+            await dispatch(addTodo({
                 item:input
             }))
-    
+            
+            // db.collection('users').doc(uid).collection('todos').add({
+            //           id:,
+            //           item:item,
+            //           done:checked
+            // })
             setInput('');
             document.querySelector('#inputfield').focus();
             
@@ -58,9 +75,9 @@ const HomeScreen = () => {
         }else{
             setError(!error);    
         }
-
     }
-        
+
+ 
         
         
     
