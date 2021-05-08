@@ -8,12 +8,13 @@ import {deleteTodoByID,updateDoneState} from '../../features/todoSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from '../../firebase';
 import { selectUid } from '../../features/userSlice';
+
 // import { db } from '../../firebase';
 
 const TodoList = ({item,id:todoid,checktodo}) => {
   
     const [checked, setChecked] = useState(true);
-    
+    // const [deleted, setDeleted] = useState(false);
     const dispatch = useDispatch();
     // const lastTodo = useSelector(selectLastTodo);
     
@@ -23,12 +24,14 @@ const TodoList = ({item,id:todoid,checktodo}) => {
     useEffect(() => {
       
       if(checktodo){
-    
-        db.collection('users').doc(uid).collection('todos').add({
-            id:todoid,
-            item:item,
-            done:checked
-        })
+      
+        let data = {
+          id:todoid,
+          item:item,
+          done:checked
+        }
+
+        db.collection('users').doc(uid).collection('todos').doc(todoid.toString()).set(data);
       }
      
     }, []);
@@ -55,9 +58,12 @@ const TodoList = ({item,id:todoid,checktodo}) => {
       }
       
       const deleteTodo = () => {
-        
+        console.log(todoid);
         dispatch(deleteTodoByID(todoid));
-        
+
+        db.collection('users').doc(uid).collection('todos').doc(todoid.toString()).delete().then(()=>{
+          console.log(`todo ${todoid} Eliminado`);  
+        });
     }
     
 
