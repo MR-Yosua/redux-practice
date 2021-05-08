@@ -10,9 +10,9 @@ const todoSlice = createSlice({
     reducers:{
         addTodo:( state,action )=>{
             const todo={
-                id: Date.now(),
+                id:action.payload.id || Date.now(),
                 item:action.payload.item,
-                done:false
+                done:action.payload.done || false
             }
             state.todoList.push(todo);
         },

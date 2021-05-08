@@ -11,9 +11,9 @@ import { selectUid } from '../../features/userSlice';
 
 // import { db } from '../../firebase';
 
-const TodoList = ({item,id:todoid,checktodo}) => {
+const TodoList = ({item,id:todoid,checktodo,doneTodo}) => {
   
-    const [checked, setChecked] = useState(true);
+    const [checked, setChecked] = useState(doneTodo);
     // const [deleted, setDeleted] = useState(false);
     const dispatch = useDispatch();
     // const lastTodo = useSelector(selectLastTodo);
@@ -49,20 +49,28 @@ const TodoList = ({item,id:todoid,checktodo}) => {
     
 
     const handleChange = () => {
-        setChecked(!checked);
-        dispatch(updateDoneState({
-          id:todoid,
-          item:item,
-          done:checked
-        }));
+
+      setChecked(!checked);        
+      dispatch(updateDoneState({
+        id:todoid,
+        item:item,
+        done:!doneTodo
+      }));
+      
+        //upadte check to firebase
+        db.collection('users').doc(uid).collection('todos').doc(todoid.toString()).update({
+          done: !doneTodo
+        });
+
+        // console.log(`doc ${todoid} was changed of ${!checked} to ${checked}`);
       }
       
       const deleteTodo = () => {
-        console.log(todoid);
+        // console.log(todoid);
         dispatch(deleteTodoByID(todoid));
 
         db.collection('users').doc(uid).collection('todos').doc(todoid.toString()).delete().then(()=>{
-          console.log(`todo ${todoid} Eliminado`);  
+          // console.log(`todo ${todoid} Eliminado`);  
         });
     }
     
@@ -70,13 +78,10 @@ const TodoList = ({item,id:todoid,checktodo}) => {
     return (
         <div className="container-todo">
              <FormControlLabel
-                control={<GreenCheckbox checked={checked} onChange={handleChange} name="checkedG" />}
+                control={<GreenCheckbox checked={doneTodo} onChange={handleChange} name="checkedG" />}
                 label={''}
             />
-            
                 <h3>{item}</h3>
-            
-            {/* <h3>TodoList Component</h3> */}
             <div className="icon">
               <i className="fas fa-trash" onClick={deleteTodo}></i>
             </div>

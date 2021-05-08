@@ -38,11 +38,12 @@ const HomeScreen = () => {
                 dispatch(deleteAllTodo());
                 snapshot.docs.forEach(doc =>{
                     dispatch(addTodo({
-                        item:doc.data().item
+                        id:doc.data().id,
+                        item:doc.data().item,
+                        done:doc.data().done
                     }))
                 })
              })
- 
     }, [])
 
 
@@ -98,7 +99,8 @@ const HomeScreen = () => {
                             {
                                 todos.map(todo =>(
                                     // console.log("todo")
-                                    <TodoList key={todo.id} item={todo.item} id={todo.id} checktodo={newTodo}/>
+                                    //? '!!' al principio de una variable la convierte en boolean
+                                    <TodoList key={todo.id} item={todo.item} id={todo.id}  checktodo={newTodo} doneTodo={!!todo.done}/>
                                 ))
                             }
                         </div>
