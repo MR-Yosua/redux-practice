@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
 
-
+*{
+    font-family: 'Poppins', sans-serif;
+}
 .container{
     margin: 0;
     padding: 0;
@@ -16,12 +18,11 @@
     margin-top: 10px;
     position: absolute;
     width:auto;
-    
 }
 
-.container .title{
+.container .title h2{
     color:#fff;
-    font-weight:400;
+    font-weight:500;
 }
 .todo-container{
     height: 700px;
@@ -58,7 +59,7 @@
 
 .input-container input{
     height:30px;
-    width:90%;
+    width:100%;
     margin-left: 10px;
     color: #fff;
     font-size:17px;
@@ -69,15 +70,16 @@
 }
 .input-container button{
     cursor: pointer;
-    background-color:transparent; 
+    background-color: red; 
     color: #fff;
-    border: 1px solid rgb(121, 143, 172);
-    width:100px;
-    border-radius: 10px;
+    font-weight: 400;
+    border: transparent;;
+    width:150px;
+    border-radius: 20px;
 }
 
 .input-container button:hover{
-    background-color: #243b55;
+    background-color: #e65350;
 }
 
 .todosection{
