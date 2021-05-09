@@ -1,0 +1,45 @@
+
+.logout{
+    padding: 20px 0;
+    position: absolute;
+    margin-left: 50px;
+    width:auto;
+}
+
+.logout .title{
+    display: flex;
+    align-items: center;
+}
+.logout .title h2{
+    position: relative;
+    color: #fff;
+    margin-left: 10px
+}
+
+.logout p{
+    margin-left: 100px;
+    line-height:5px;
+    position: relative;
+    color: #fff;
+    font-weight:500;
+    cursor: pointer;
+    transition: all 0.1s ease-in;
+}
+
+.logout p:hover{
+    color: red;
+}
+
+.logout .title .img{
+    background-size: cover;
+    height:50px;
+    width:50px;
+    background:no-repeat;
+    background-position: center;
+}
+
+.logout .title img{
+    height:50px;
+    width:50px;
+    border-radius:50%;
+}

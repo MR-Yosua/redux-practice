@@ -28,7 +28,8 @@ function App() {
         dispatch(setActiveUser({
           uid:user.uid,
           userName: user.displayName,
-          userEmail: user.email
+          userEmail: user.email,
+          photoURL: user.photoURL
         }))
         if(authenticaded !== null){
           setIsLogged(true);

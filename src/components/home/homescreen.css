@@ -1,26 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap');
 
-.logout{
-    position: absolute;
-    margin-left: 10px;
-    width:auto;
-}
-.logout h2{
-    position: relative;
-    color: #fff;
-}
-.logout p{
-    height:auto;
-    position: relative;
-    color: #fff;
-    font-weight:500;
-    cursor: pointer;
-    transition: all 0.1s ease-in;
-}
-
-.logout p:hover{
-    color: red;
-}
 
 .container{
     margin: 0;

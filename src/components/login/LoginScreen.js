@@ -34,7 +34,8 @@ const LoginScreen = () => {
             dispatch(setActiveUser({
                 uid:result.user.uid,
                 userName: result.user.displayName,
-                userEmail:result.user.email
+                userEmail:result.user.email,
+                photoURL: result.user.photoURL
             }))
             
 
@@ -42,7 +43,8 @@ const LoginScreen = () => {
             db.collection('users').doc(result.user.uid).set({
                 uid:result.user.uid,
                 userName: result.user.displayName,
-                userEmail:result.user.email
+                userEmail:result.user.email,
+                photoURL: result.user.photoURL
             });
 
             
@@ -64,13 +66,15 @@ const LoginScreen = () => {
                 dispatch(setActiveUser({
                     uid:result.user.uid,
                     userName: result.user.displayName,
-                    userEmail: result.user.email
+                    userEmail: result.user.email,
+                    photoURL: result.user.photoURL
                 }))
                 //create users database on firebase
                 db.collection('users').doc(result.user.uid).set({
                     uid:result.user.uid,
                     userName: result.user.displayName,
-                    userEmail:result.user.email
+                    userEmail:result.user.email,
+                    photoURL: result.user.photoURL
                 });
                   
                 history.push('/home');

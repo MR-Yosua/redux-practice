@@ -1,36 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import {auth, db} from '../../firebase';
+import { db} from '../../firebase';
 import { useDispatch, useSelector} from 'react-redux';
-import {useHistory} from 'react-router-dom';
-import { setUserLogOut } from '../../features/userSlice';
+// import {useHistory} from 'react-router-dom';
+// import { setUserLogOut } from '../../features/userSlice';
 import './homescreen.css';
 import {addTodo, deleteAllTodo } from '../../features/todoSlice';
 import TodoList from '../todo/TodoList';
 import {selectTodo} from '../../features/todoSlice';
 import Alert from '@material-ui/lab/Alert';
 import Fade from '@material-ui/core/Fade';
+import SignInSignOut from '../card/SignInSignOut';
 const HomeScreen = () => {
     
     // const todos = useSelector(state=>state.todos.todoList);
     
-    const todos = useSelector(selectTodo);
     // const lastTodo = useSelector(selectLastTodo);
-    const name = useSelector(state =>state.user.userName);
+    // const name = useSelector(state =>state.user.userName);
+    const todos = useSelector(selectTodo);
     const uid = useSelector(state =>state.user.uid);
 
-    const history = useHistory();
+    // const history = useHistory();
     const dispatch = useDispatch();
     const [input, setInput] = useState('');
     const [error, setError] = useState(false);
     const [newTodo, setNewTodo] = useState(false);
-
-    const signOut = () => {
-        auth.signOut().then(() => {
-            dispatch(deleteAllTodo());
-            dispatch(setUserLogOut());
-            history.push('/');
-        }).catch(error=>alert(error));
-    }
 
 
     useEffect(() => {
@@ -51,7 +44,7 @@ const HomeScreen = () => {
         saveTodo();
         setNewTodo(true);
     }
-    
+
 
     useEffect(() => {
         if(error){
@@ -62,7 +55,7 @@ const HomeScreen = () => {
     }, [error])
     
     const saveTodo = async() => {
-        // console.log(`Adding ${input}`);
+
         if(input !== ''){
             await dispatch(addTodo({
                 item:input
@@ -85,10 +78,7 @@ const HomeScreen = () => {
     
     return (
         <>
-            <div className="logout">
-                <h2>Hola {name} !</h2>
-                <p onClick={signOut}>Cerrar Sesión</p>
-            </div>
+            {<SignInSignOut/>}
             <div className="container">
                 <div className="title">
                     <h2>Todo de pelitos</h2>
@@ -113,8 +103,10 @@ const HomeScreen = () => {
                                 value={input}
                                 onChange={(e)=>setInput(e.target.value)}
                                 placeholder="Ingresa Tarea"
-                            />
-                            
+                                onKeyPress={(e)=>(
+                                    e.key ==='Enter' && handleClick()        
+                                )}
+                            />                    
                             <button
                                     onClick={handleClick}    
                                 >
