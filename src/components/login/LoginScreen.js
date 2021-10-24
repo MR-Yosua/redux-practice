@@ -78,7 +78,12 @@ const LoginScreen = () => {
                   
                 history.push('/home');
     
-            } ).catch(error=>{setError(true)});
+            } ).catch(error=>{
+                setError(true);
+                console.log("Error 3 antes");
+                setTimeout(()=>{setError(false)},5000);
+                console.log("Error 3 despues");
+            });
     }
     
 
@@ -87,7 +92,7 @@ const LoginScreen = () => {
         <div className="main-container">
             <div className="login-container">
                 <div className="login-title">
-                    <h2>Login to use this amazing app</h2> 
+                    <h2>Iniciar Sesión TodoAPP</h2> 
                 </div>
                 <div className="form-container">
                     <form onSubmit={signIn}>

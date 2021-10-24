@@ -12,14 +12,10 @@ import Fade from '@material-ui/core/Fade';
 import SignInSignOut from '../card/SignInSignOut';
 const HomeScreen = () => {
     
-    // const todos = useSelector(state=>state.todos.todoList);
     
-    // const lastTodo = useSelector(selectLastTodo);
-    // const name = useSelector(state =>state.user.userName);
     const todos = useSelector(selectTodo);
     const uid = useSelector(state =>state.user.uid);
 
-    // const history = useHistory();
     const dispatch = useDispatch();
     const [input, setInput] = useState('');
     const [error, setError] = useState(false);
@@ -81,7 +77,7 @@ const HomeScreen = () => {
             {<SignInSignOut/>}
             <div className="container">
                 <div className="title">
-                    <h2>Todo de pelitos</h2>
+                    <h2>Aplicación TODO</h2>
                 </div>
             <div className="todo-container">
                     <div className="todosection">
