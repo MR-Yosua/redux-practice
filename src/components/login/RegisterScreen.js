@@ -35,11 +35,19 @@ const RegisterScreen = () => {
             setError(!error);
         }
     }
+
+    const handleBackBtn = () => {
+        history.push('/home');
+    }
+    
     
 
     return (
         <div className="main-container">
             <div className="register-container">
+                <div className="btn-back">
+                    <i className="iconback fas fa-chevron-circle-left" onClick={handleBackBtn}></i>
+                </div>
                 <div className="title">
                     <h2>Regístrate con Email o Google</h2>
                 </div>

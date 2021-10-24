@@ -61,7 +61,6 @@ const LoginScreen = () => {
     
     const SignInWithGoogle = async() => {
 
-       
             await auth.signInWithPopup(provider).then((result) =>{
                 dispatch(setActiveUser({
                     uid:result.user.uid,
@@ -80,7 +79,6 @@ const LoginScreen = () => {
                 history.push('/home');
     
             } ).catch(error=>{setError(true)});
-
     }
     
 

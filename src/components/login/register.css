@@ -25,7 +25,19 @@
 }
 
 .register-container .title{
+    display: flex;
     color: #fff;
+}
+
+.register-container .iconback{
+    color: #fff;
+    margin-top: -10px;
+    font-size: 30px;
+}
+
+.register-container .iconback:hover{
+    color: #6a7d92;
+    cursor: pointer;
 }
 
 .register-container .form-container{
