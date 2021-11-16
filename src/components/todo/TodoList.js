@@ -9,20 +9,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { db } from '../../firebase';
 import { selectUid } from '../../features/userSlice';
 
-// import { db } from '../../firebase';
-
 const TodoList = ({item,id:todoid,checktodo,doneTodo}) => {
   
     const [checked, setChecked] = useState(doneTodo);
-    // const [deleted, setDeleted] = useState(false);
-    const dispatch = useDispatch();
-    // const lastTodo = useSelector(selectLastTodo);
-    
+    const dispatch = useDispatch();    
     const uid = useSelector(selectUid);
 
 
     useEffect(() => {
-      
+      // funcion to insert a new todo in firebase
       if(checktodo){
       
         let data = {
@@ -30,10 +25,8 @@ const TodoList = ({item,id:todoid,checktodo,doneTodo}) => {
           item:item,
           done:checked
         }
-
         db.collection('users').doc(uid).collection('todos').doc(todoid.toString()).set(data);
       }
-     
     }, []);
 
 
@@ -48,7 +41,7 @@ const TodoList = ({item,id:todoid,checktodo,doneTodo}) => {
       })((props) => <Checkbox color="default" {...props} />);
     
 
-    const handleChange = () => {
+    const updateTaskState = () => {
 
       setChecked(!checked);        
       dispatch(updateDoneState({
@@ -61,30 +54,25 @@ const TodoList = ({item,id:todoid,checktodo,doneTodo}) => {
         db.collection('users').doc(uid).collection('todos').doc(todoid.toString()).update({
           done: !doneTodo
         });
-
-        // console.log(`doc ${todoid} was changed of ${!checked} to ${checked}`);
       }
       
       const deleteTodo = () => {
-        // console.log(todoid);
+        //delete todo from firebase
         dispatch(deleteTodoByID(todoid));
-
-        db.collection('users').doc(uid).collection('todos').doc(todoid.toString()).delete().then(()=>{
-          // console.log(`todo ${todoid} Eliminado`);  
-        });
+        db.collection('users').doc(uid).collection('todos').doc(todoid.toString()).delete();
     }
     
 
     return (
         <div className="container-todo">
-             <FormControlLabel
-                control={<GreenCheckbox checked={doneTodo} onChange={handleChange} name="checkedG" />}
-                label={''}
+          <FormControlLabel
+            control={<GreenCheckbox checked={doneTodo} onChange={updateTaskState} name="checkedG" />}
+            label={''}
             />
-                <h3>{item}</h3>
-            <div className="icon">
-              <i className="fas fa-trash" onClick={deleteTodo}></i>
-            </div>
+          <h3>{item}</h3>
+          <div className="icon">
+            <i className="fas fa-trash" onClick={deleteTodo}></i>
+          </div>
         </div>
     )
 }
