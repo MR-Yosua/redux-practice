@@ -4,19 +4,19 @@ import 'firebase/auth';
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyCy_2Bktm4uimQAfiz-mT3lz71Jxfk9908",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
 
-  authDomain: "redux-practice-151e9.firebaseapp.com",
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
 
-  databaseURL: "https://redux-practice-151e9-default-rtdb.firebaseio.com",
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
 
-  projectId: "redux-practice-151e9",
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
 
-  storageBucket: "redux-practice-151e9.appspot.com",
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
 
-  messagingSenderId: "498485877507",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
 
-  appId: "1:498485877507:web:86ca3742eb9db0c5936736"
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 
 };
 
